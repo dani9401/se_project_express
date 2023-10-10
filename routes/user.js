@@ -5,15 +5,15 @@ const {createUser, getUsers, getUser} = require('../controllers/user')
 // CREATE
 router.post('/', createUser);
 
-//READ
+// READ
 router.get('/', getUsers);
 
 router.get('/:userId', getUser)
 
-//UPDATE
+// UPDATE
 
 
-//DELETE
+// DELETE
 
 
 module.exports = router;

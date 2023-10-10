@@ -17,5 +17,11 @@ app.use(routes);
 app.listen(PORT, () => {
   console.log('App listening at port ${PORT}');
   console.log("this is working")
-})
+});
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '651f7b0c1a44987c2d462a6a'
+  };
+  next();
+});
