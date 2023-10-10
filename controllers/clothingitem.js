@@ -11,10 +11,10 @@ const createItem = (req, res) => {
   // this is doable because we're not renaming these things right now
   // if you're renaming the item once you insert it into the db, then this is where it's done
   .then((item) => {
-    console.log(item);
     res.send({data:item})
   }).catch((e) => {
-    res.status(500).send({message: "Error from createItem", e})
+    console.error();
+    res.status(400).send({message: "Error from createItem", e})
   })
 };
 
@@ -33,7 +33,7 @@ const updateItem = (req, res) => {
   .orFail().then((item) => res.status(200)
   .send({data:item}))
   .catch((e) => {
-    res.status(500).send({message: "Error from updateItem", e})
+    res.status(400).send({message: "Error from updateItem", e})
 })
 }
 

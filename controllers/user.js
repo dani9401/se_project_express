@@ -8,11 +8,10 @@ const createUser = (req, res) => {
 
   User.create({name, avatar})
   .then((newUser) => {
-    console.log(newUser);
     res.send({data: newUser})
   })
   .catch((e) => {
-    res.status(500).send({message: "Error from createUser", e})
+    res.status(400).send({message: "Error from createUser", e})
   })
 }
 

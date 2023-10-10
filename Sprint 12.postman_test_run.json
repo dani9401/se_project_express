@@ -1,0 +1,1208 @@
+{
+	"id": "3f0ec0ce-8489-4d78-a30c-dd5a2fa97126",
+	"name": "Sprint 12",
+	"timestamp": "2023-10-10T17:25:38.533Z",
+	"collection_id": "29718012-6050ae03-6850-4534-b823-958083d12e24",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 49,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-10-10T17:25:34.999Z",
+	"totalFail": 32,
+	"results": [
+		{
+			"id": "613cc4c5-6df2-421a-9f65-d91aa9f36475",
+			"name": "[+] [POST] Add User",
+			"url": "http://localhost:3001/users",
+			"time": 76,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200 or 201": true,
+				"Response body has json with form data": true,
+				"Response body has json with _id field": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200 or 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body has json with form data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body has json with _id field": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				76
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200 or 201": true,
+					"Response body has json with form data": true,
+					"Response body has json with _id field": true
+				}
+			]
+		},
+		{
+			"id": "3db90029-186a-40b1-a846-f1b97aaadac4",
+			"name": "[-] [POST] Add a user with \"name\" field less than 2 characters",
+			"url": "http://localhost:3001/users",
+			"time": 34,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				34
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "72a08815-e2d6-4632-9643-582de82efb35",
+			"name": "[-] [POST] Add a user with \"name\" field greater than 30 characters",
+			"url": "http://localhost:3001/users",
+			"time": 41,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is: 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is: 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				41
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is: 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "50922314-49b6-47b4-ab15-8fca228ba888",
+			"name": "[-] [POST] Add a user without the required \"name\" field",
+			"url": "http://localhost:3001/users",
+			"time": 40,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				40
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "2389613d-8b13-450a-bb73-9baf8d58e22d",
+			"name": "[-] [POST] Add a user without the required \"avatar\" field",
+			"url": "http://localhost:3001/users",
+			"time": 32,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				32
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "08c296d4-9753-4ba1-9d3c-a545d96ede2a",
+			"name": "[-] [POST] Add a user with an invalid url to the \"avatar\" field",
+			"url": "http://localhost:3001/users",
+			"time": 36,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				36
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "34ddd742-be85-4745-9138-a4634d241307",
+			"name": "[+] [GET] Get list of users",
+			"url": "http://localhost:3001/users",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200": true,
+				"List of users": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List of users": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200": true,
+					"List of users": true
+				}
+			]
+		},
+		{
+			"id": "f4276e0a-6d24-4072-8dac-10600d02fb66",
+			"name": "[+] [GET] Get a user by _id",
+			"url": "http://localhost:3001/users/6525890fc43e75ede3ed6d7a",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200": true,
+				"Response body has json with user data": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body has json with user data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200": true,
+					"Response body has json with user data": true
+				}
+			]
+		},
+		{
+			"id": "d5c90bfe-e280-4161-9fd4-cf2d69785d5c",
+			"name": "[-] [GET] Get a user with an invalid _id",
+			"url": "http://localhost:3001/users/text",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "9df90d97-dd3d-4b23-8a84-96a835fa074b",
+			"name": "[-] [GET] Get a user with an _id that does not exist in the database",
+			"url": "http://localhost:3001/users/61eade4c6d5acf558c42d9b8",
+			"time": 6,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 404": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 404": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 404": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "c304da13-5fba-4110-8713-6282732870e8",
+			"name": "[+] [POST] Add an item",
+			"url": "http://localhost:3001/items",
+			"time": 45,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200 or 201": false,
+				"Response body has json with form data": false,
+				"Response body has json with filed _id": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200 or 201": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json with form data": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json with filed _id": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				45
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200 or 201": false,
+					"Response body has json with form data": false,
+					"Response body has json with filed _id": false
+				}
+			]
+		},
+		{
+			"id": "6d8f501c-e5df-4dfc-816e-633cf2a11b6c",
+			"name": "[-] [POST] Add an item with \"name\" field less than 2 characters",
+			"url": "http://localhost:3001/items",
+			"time": 38,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				38
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "a332739c-de5a-4faf-a719-d5abcbf063e3",
+			"name": "[-] [POST] Add an item with \"name\" field greater than 30 characters",
+			"url": "http://localhost:3001/items",
+			"time": 37,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				37
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "e049370d-6757-4d1a-b1b3-6c25d4bf6fb2",
+			"name": "[-] [POST] Add an item without the required \"name\" field",
+			"url": "http://localhost:3001/items",
+			"time": 36,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				36
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "e3b46c3e-824d-4551-b3a4-ed654d98b83b",
+			"name": "[-] [POST] Add an item without the required \"weather\" field",
+			"url": "http://localhost:3001/items",
+			"time": 47,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				47
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "7629d4b8-0535-4f51-a8d3-dff8dc802237",
+			"name": "[-] [POST] Add an item with an invalid url to the \"imageUrl\" field",
+			"url": "http://localhost:3001/items",
+			"time": 32,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				32
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "954d4c10-7533-4ba0-b6e5-b2e5cff7b745",
+			"name": "[+] [GET] Get list of items",
+			"url": "http://localhost:3001/items",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200": true,
+				"List of items": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List of items": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200": true,
+					"List of items": true
+				}
+			]
+		},
+		{
+			"id": "251381eb-03ae-45ff-b022-48f7d2c89979",
+			"name": "[+] [PUT] Likes an item",
+			"url": "http://localhost:3001/items/:id/likes",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200 or 201": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200 or 201": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200 or 201": false
+				}
+			]
+		},
+		{
+			"id": "9e9ab5f7-6ce6-4035-953a-a09316163c84",
+			"name": "[-] [PUT] Likes an item with an incorrect _id",
+			"url": "http://localhost:3001/items/text/likes",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": false,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": false,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": false
+				}
+			]
+		},
+		{
+			"id": "afe18aae-7442-485b-87a4-3c50d7ac7513",
+			"name": "[-] [PUT] Likes an item with a non-existent _id in the database",
+			"url": "http://localhost:3001/items/61eade4c6d5acf558c42d9b8/likes",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": false,
+				"Status code is 404": false,
+				"Response body has json saying 'message'": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Status code is 404": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": false,
+					"Status code is 404": false,
+					"Response body has json saying 'message'": false
+				}
+			]
+		},
+		{
+			"id": "869ea786-31a3-471b-a2e8-d78fbe2dc332",
+			"name": "[-] [DELETE] Unlikes an item with an incorrect _id",
+			"url": "http://localhost:3001/items/text/likes",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": false,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": false,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": false
+				}
+			]
+		},
+		{
+			"id": "f56e10c7-2bf3-4f31-b683-dcdf1e60c734",
+			"name": "[-] [DELETE] Unlikes an item with a non-existent _id in the database",
+			"url": "http://localhost:3001/items/61eade4c6d5acf558c42d9b8/likes",
+			"time": 2,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": false,
+				"Status code is 404": false,
+				"Response body has json saying 'message'": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Status code is 404": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				2
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": false,
+					"Status code is 404": false,
+					"Response body has json saying 'message'": false
+				}
+			]
+		},
+		{
+			"id": "18456ec8-d0a0-482c-ae00-ec1df2e3c151",
+			"name": "[+] [DELETE] Unlikes an item",
+			"url": "http://localhost:3001/items/:id/likes",
+			"time": 3,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200": false
+				}
+			]
+		},
+		{
+			"id": "62549487-31d5-4bb0-8970-447a1056b535",
+			"name": "[+] [GET] Check if an item has no likes after delete it",
+			"url": "http://localhost:3001/items",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"The response body has json with an empty 'likes' field": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response body has json with an empty 'likes' field": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"The response body has json with an empty 'likes' field": true
+				}
+			]
+		},
+		{
+			"id": "8bcdb91a-ba9d-4c54-aeb4-62f69f417e2f",
+			"name": "[+] [DELETE] Deletes an item by _id",
+			"url": "http://localhost:3001/items/:id",
+			"time": 2,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 200": false
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				2
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 200": false
+				}
+			]
+		},
+		{
+			"id": "5455ccbc-7411-444a-8319-ed6d5ea27d71",
+			"name": "[+] [GET] Check if an item is missing in the database after deleting it",
+			"url": "http://localhost:3001/items",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"The deleted item must not be in the database": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The deleted item must not be in the database": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"The deleted item must not be in the database": true
+				}
+			]
+		},
+		{
+			"id": "a6c84c20-00ba-465a-a596-923e8691e116",
+			"name": "[-] [DELETE] Deletes an item with an incorrect _id",
+			"url": "http://localhost:3001/items/text",
+			"time": 4,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 400": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 400": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		},
+		{
+			"id": "da01fd7e-02db-4791-b1e9-ebe8bc0e63d5",
+			"name": "[-] [DELETE] Deletes an item with a non-existent _id in the database",
+			"url": "http://localhost:3001/items/61eade4c6d5acf558c42d9b8",
+			"time": 5,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Response contains a JSON object": true,
+				"Status code is 404": false,
+				"Response body has json saying 'message'": true
+			},
+			"testPassFailCounts": {
+				"Response contains a JSON object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 404": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response body has json saying 'message'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Response contains a JSON object": true,
+					"Status code is 404": false,
+					"Response body has json saying 'message'": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 552,
+	"collection": {
+		"requests": [
+			{
+				"id": "613cc4c5-6df2-421a-9f65-d91aa9f36475",
+				"method": "POST"
+			},
+			{
+				"id": "3db90029-186a-40b1-a846-f1b97aaadac4",
+				"method": "POST"
+			},
+			{
+				"id": "72a08815-e2d6-4632-9643-582de82efb35",
+				"method": "POST"
+			},
+			{
+				"id": "50922314-49b6-47b4-ab15-8fca228ba888",
+				"method": "POST"
+			},
+			{
+				"id": "2389613d-8b13-450a-bb73-9baf8d58e22d",
+				"method": "POST"
+			},
+			{
+				"id": "08c296d4-9753-4ba1-9d3c-a545d96ede2a",
+				"method": "POST"
+			},
+			{
+				"id": "34ddd742-be85-4745-9138-a4634d241307",
+				"method": "GET"
+			},
+			{
+				"id": "f4276e0a-6d24-4072-8dac-10600d02fb66",
+				"method": "GET"
+			},
+			{
+				"id": "d5c90bfe-e280-4161-9fd4-cf2d69785d5c",
+				"method": "GET"
+			},
+			{
+				"id": "9df90d97-dd3d-4b23-8a84-96a835fa074b",
+				"method": "GET"
+			},
+			{
+				"id": "c304da13-5fba-4110-8713-6282732870e8",
+				"method": "POST"
+			},
+			{
+				"id": "6d8f501c-e5df-4dfc-816e-633cf2a11b6c",
+				"method": "POST"
+			},
+			{
+				"id": "a332739c-de5a-4faf-a719-d5abcbf063e3",
+				"method": "POST"
+			},
+			{
+				"id": "e049370d-6757-4d1a-b1b3-6c25d4bf6fb2",
+				"method": "POST"
+			},
+			{
+				"id": "e3b46c3e-824d-4551-b3a4-ed654d98b83b",
+				"method": "POST"
+			},
+			{
+				"id": "7629d4b8-0535-4f51-a8d3-dff8dc802237",
+				"method": "POST"
+			},
+			{
+				"id": "954d4c10-7533-4ba0-b6e5-b2e5cff7b745",
+				"method": "GET"
+			},
+			{
+				"id": "251381eb-03ae-45ff-b022-48f7d2c89979",
+				"method": "PUT"
+			},
+			{
+				"id": "9e9ab5f7-6ce6-4035-953a-a09316163c84",
+				"method": "PUT"
+			},
+			{
+				"id": "afe18aae-7442-485b-87a4-3c50d7ac7513",
+				"method": "PUT"
+			},
+			{
+				"id": "869ea786-31a3-471b-a2e8-d78fbe2dc332",
+				"method": "DELETE"
+			},
+			{
+				"id": "f56e10c7-2bf3-4f31-b683-dcdf1e60c734",
+				"method": "DELETE"
+			},
+			{
+				"id": "18456ec8-d0a0-482c-ae00-ec1df2e3c151",
+				"method": "DELETE"
+			},
+			{
+				"id": "62549487-31d5-4bb0-8970-447a1056b535",
+				"method": "GET"
+			},
+			{
+				"id": "8bcdb91a-ba9d-4c54-aeb4-62f69f417e2f",
+				"method": "DELETE"
+			},
+			{
+				"id": "5455ccbc-7411-444a-8319-ed6d5ea27d71",
+				"method": "GET"
+			},
+			{
+				"id": "a6c84c20-00ba-465a-a596-923e8691e116",
+				"method": "DELETE"
+			},
+			{
+				"id": "da01fd7e-02db-4791-b1e9-ebe8bc0e63d5",
+				"method": "DELETE"
+			}
+		]
+	}
+}

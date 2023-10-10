@@ -7,7 +7,11 @@ const user = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 30,
-  },
+    validate: {
+    validator: (v) => validator.isByteLength(v),
+    message: "This field accepts a value between 2 and 30 characters",
+  }
+},
   avatar: {
     type: String,
     required: true,
