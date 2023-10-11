@@ -1,15 +1,19 @@
 const ClothingItem = require('../models/clothingitem');
+const user = require('../models/user');
 
 const createItem = (req, res) => {
   console.log(req)
   console.log(req.body)
 
-  const {name, weather, imageURL} = req.body;
+  const {name, weather, imageUrl, ownerId} = req.body;
 
-  ClothingItem.create({name, weather, imageURL})
-  // above is shorthand notation. Same as {name: name, weather: weather, imageURL: imageURL}
+  ClothingItem.create({name, weather, imageUrl, user: ownerId})
+  // above is shorthand notation. Same as {name: name, weather: weather, imageUrl: imageUrl}
   // this is doable because we're not renaming these things right now
   // if you're renaming the item once you insert it into the db, then this is where it's done
+
+  ClothingItem.find({})
+    .populate(['owner', 'likes'])
   .then((item) => {
     res.send({data:item})
   }).catch((err) => {
@@ -33,9 +37,9 @@ const getItems = (req, res) => {
 
 const updateItem = (req, res) => {
   const {itemId} = req.params; //params are part of the URL
-  const {imageURL} = req.body; //body is part of the request body
+  const {imageUrl} = req.body; //body is part of the request body
 
-  ClothingItem.findByIdAndUpdate(itemId, {$set: {imageURL}})
+  ClothingItem.findByIdAndUpdate(itemId, {$set: {imageUrl}})
   .orFail().then((item) => res.status(200)
   .send({data:item}))
   .catch((err) => {
@@ -55,21 +59,20 @@ const deleteItem = (req, res) => {
       console.error(err);
       console.log(err.name)
       res.status(500).send({message: "Error from deleteItem", err})
+
   })
 }
 
 const likeItem = (req, res) => {
 const {itemId} = req.params.itemId;
 
-console.log(itemId);
-
 ClothingItem.findByIdAndUpdate(
   req.params.itemId,
   { $addToSet: { likes: req.user._id } },
   { new: true },
 )
-  .orFail().then((item) => res.status(200)
-  .send({data:item}))
+  .orFail().then((like) => res.status(200)
+  .send({like}))
   .catch((err) => {
     res.status(500).send({message: "Error from likeItem", err})
 })
