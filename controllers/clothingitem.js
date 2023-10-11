@@ -5,12 +5,9 @@ const createItem = (req, res) => {
   console.log(req)
   console.log(req.body)
 
-  const {name, weather, imageUrl, ownerId} = req.body;
+  const {name, weather, imageUrl, ownerId, likes} = req.body;
 
-  ClothingItem.create({name, weather, imageUrl, user: ownerId})
-  // above is shorthand notation. Same as {name: name, weather: weather, imageUrl: imageUrl}
-  // this is doable because we're not renaming these things right now
-  // if you're renaming the item once you insert it into the db, then this is where it's done
+  ClothingItem.create({name, weather, imageUrl, user: ownerId}, likes)
 
   ClothingItem.find({})
     .populate(['owner', 'likes'])
