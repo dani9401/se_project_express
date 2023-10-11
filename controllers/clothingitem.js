@@ -12,9 +12,15 @@ const createItem = (req, res) => {
   // if you're renaming the item once you insert it into the db, then this is where it's done
   .then((item) => {
     res.send({data:item})
-  }).catch((e) => {
-    console.error();
-    res.status(400).send({message: "Error from createItem", e})
+  }).catch((err) => {
+    console.error(err);
+    console.log(err.name)
+    if  (err.name === "ValidationError") {
+      res.status(400).send({message: "This field accepts a value between 2 and 30 characters", err})
+     } else if (err.name === "something-else") {
+      res.status(400).send({message: "something else error on createUser", err})
+     }
+    res.status(500).send({message: "Error from createItem", err})
   })
 };
 
@@ -26,39 +32,48 @@ const getItems = (req, res) => {
 };
 
 const updateItem = (req, res) => {
-  const {itemId} = req.params;
-  const {imageURL} = req.body;
+  const {itemId} = req.params; //params are part of the URL
+  const {imageURL} = req.body; //body is part of the request body
 
   ClothingItem.findByIdAndUpdate(itemId, {$set: {imageURL}})
   .orFail().then((item) => res.status(200)
   .send({data:item}))
-  .catch((e) => {
-    res.status(400).send({message: "Error from updateItem", e})
+  .catch((err) => {
+    console.error(err);
+    console.log(err.name)
+    res.status(500).send({message: "Error from updateItem", err})
 })
 }
 
 const deleteItem = (req, res) => {
   const {itemId} = req.params;
-  console.log(itemId);
+
   ClothingItem.findByIdAndDelete(itemId)
   .orFail().then((item) =>
-    res.status(204)
-    .send({}))
-    .catch((e) => {
-      res.status(500).send({message: "Error from deleteItem", e})
+    res.status(200).send({message: "Item has been deleted."}))
+    .catch((err) => {
+      console.error(err);
+      console.log(err.name)
+      res.status(500).send({message: "Error from deleteItem", err})
   })
 }
 
-const likeItem = (req, res) => ClothingItem.findByIdAndUpdate(
+const likeItem = (req, res) => {
+const {itemId} = req.params.itemId;
+
+console.log(itemId);
+
+ClothingItem.findByIdAndUpdate(
   req.params.itemId,
   { $addToSet: { likes: req.user._id } },
   { new: true },
 )
   .orFail().then((item) => res.status(200)
   .send({data:item}))
-  .catch((e) => {
-    res.status(500).send({message: "Error from likeItem", e})
+  .catch((err) => {
+    res.status(500).send({message: "Error from likeItem", err})
 })
+}
 
 const dislikeItem = (req, res) => ClothingItem.findByIdAndUpdate(
   req.params.itemId,
