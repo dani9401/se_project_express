@@ -1,16 +1,18 @@
 const ClothingItem = require('../models/clothingitem');
-const user = require('../models/user');
+const User = require('../models/user');
 
 const createItem = (req, res) => {
-  console.log(req)
-  console.log(req.body)
+  console.log(req);
+  console.log(req.body);
+  console.log(req.user);
 
-  const {name, weather, imageUrl, ownerId, likes} = req.body;
+  const {name, weather, imageUrl, likes} = req.body;
+  //const {ownerId} = req.user;
 
-  ClothingItem.create({name, weather, imageUrl, user: ownerId}, likes)
+  ClothingItem.create({name, weather, imageUrl, User, likes})
 
-  ClothingItem.find({})
-    .populate(['owner', 'likes'])
+  //ClothingItem.find({})
+ //   .populate(['owner', 'likes'])
   .then((item) => {
     res.send({data:item})
   }).catch((err) => {
@@ -40,8 +42,6 @@ const updateItem = (req, res) => {
   .orFail().then((item) => res.status(200)
   .send({data:item}))
   .catch((err) => {
-    console.error(err);
-    console.log(err.name)
     res.status(500).send({message: "Error from updateItem", err})
 })
 }
