@@ -32,19 +32,19 @@ const getItems = (req, res) => {
     });
 };
 
-const updateItem = (req, res) => {
-  const { itemId } = req.params; //params are part of the URL
-  const { imageUrl } = req.body; //body is part of the request body
+//const updateItem = (req, res) => {
+//  const { itemId } = req.params; //params are part of the URL
+//  const { imageUrl } = req.body; //body is part of the request body
 
-  ClothingItem.findByIdAndUpdate(itemId, { $set: { imageUrl } })
-    .orFail()
-    .then((item) => res.status(OK).send({ data: item }))
-    .catch((err) => {
-      res
-        .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server." });
-    });
-};
+//  ClothingItem.findByIdAndUpdate(itemId, { $set: { imageUrl } })
+//    .orFail()
+//    .then((item) => res.status(OK).send({ data: item }))
+//    .catch((err) => {
+//      res
+//        .status(DEFAULT_ERROR)
+//        .send({ message: "An error has occurred on the server." });
+//    });
+//};
 
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
@@ -95,7 +95,6 @@ const dislikeItem = (req, res) =>
 module.exports = {
   createItem,
   getItems,
-  updateItem,
   deleteItem,
   likeItem,
   dislikeItem,
