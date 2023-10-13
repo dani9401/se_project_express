@@ -4,8 +4,7 @@ const { BAD_REQUEST, DEFAULT_ERROR, NOT_FOUND } = require("../utils/errors");
 const createItem = (req, res) => {
   const { name, weather, imageUrl, likes } = req.body;
 
-  ClothingItem.create({ name, weather, imageUrl, likes })
-
+  ClothingItem.create({ name, weather, imageUrl, owner, likes })
     .then((item) => {
       res.send({ data: item });
     })
