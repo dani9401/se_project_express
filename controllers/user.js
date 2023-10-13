@@ -22,12 +22,11 @@ const createUser = (req, res) => {
       if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
           message: "This field accepts a value between 2 and 30 characters",
-          err,
         });
       } else {
         res
           .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server.", err });
+          .send({ message: "An error has occurred on the server." });
       }
     });
 };
@@ -38,7 +37,7 @@ const getUsers = (req, res) => {
     .catch((err) => {
       res
         .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server.", err });
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -54,11 +53,11 @@ const getUser = (req, res) => {
       if (err.name === "CastError") {
         res
           .status(NOT_FOUND)
-          .send({ message: "No user with that ID. Please try again.", err });
+          .send({ message: "No user with that ID. Please try again." });
       } else {
         res
           .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server.", err });
+          .send({ message: "An error has occurred on the server." });
       }
     });
 };
