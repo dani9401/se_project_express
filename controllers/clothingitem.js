@@ -1,5 +1,10 @@
 const ClothingItem = require("../models/clothingitem");
-const { OK, BAD_REQUEST, DEFAULT_ERROR } = require("../utils/errors");
+const {
+  OK,
+  BAD_REQUEST,
+  DEFAULT_ERROR,
+  NOT_FOUND,
+} = require("../utils/errors");
 
 const createItem = (req, res) => {
   const { name, weather, imageUrl, likes } = req.body;
@@ -53,11 +58,20 @@ const deleteItem = (req, res) => {
     .orFail()
     .then((item) => res.status(OK).send({ message: "Item has been deleted." }))
     .catch((err) => {
-      console.error(err);
-      console.log(err.name);
-      res
-        .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server." });
+      if (err.name === "DocumentNotFoundError") {
+        res.status(NOT_FOUND).send({
+          message:
+            "There is no clothing item with the requested id, or the request was sent to a non-existent address",
+        });
+      } else if (err.name === "CastError") {
+        res.status(BAD_REQUEST).send({
+          message: "Invalid ID passed.",
+        });
+      } else {
+        res.status(DEFAULT_ERROR).send({
+          message: "An error has occurred on the server.",
+        });
+      }
     });
 };
 
