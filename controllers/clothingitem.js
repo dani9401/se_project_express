@@ -103,7 +103,7 @@ const likeItem = (req, res) => {
     });
 };
 
-const dislikeItem = (req, res) =>
+const dislikeItem = (req, res) => {
   ClothingItem.findByIdAndUpdate(
     req.params.itemId,
     { $pull: { likes: req.user._id } }, // remove _id from the array
@@ -111,11 +111,23 @@ const dislikeItem = (req, res) =>
   )
     .orFail()
     .then((item) => res.status(OK).send({ data: item }))
-    .catch((e) => {
-      res
-        .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server." });
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res.status(NOT_FOUND).send({
+          message:
+            "There is no clothing item with the requested id, or the request was sent to a non-existent address",
+        });
+      } else if (err.name === "CastError") {
+        res.status(BAD_REQUEST).send({
+          message: "Invalid ID passed.",
+        });
+      } else {
+        res.status(DEFAULT_ERROR).send({
+          message: "An error has occurred on the server.",
+        });
+      }
     });
+};
 
 module.exports = {
   createItem,
