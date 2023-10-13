@@ -33,7 +33,7 @@ const createUser = (req, res) => {
 
 const getUsers = (req, res) => {
   User.find({})
-    .then((users) => res.status(OK).send(users))
+    .then((users) => res.send({ users }))
     .catch((err) => {
       res
         .status(DEFAULT_ERROR)
