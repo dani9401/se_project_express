@@ -32,7 +32,7 @@ const getItems = (req, res) => {
     });
 };
 
-//const updateItem = (req, res) => {
+// const updateItem = (req, res) => {
 //  const { itemId } = req.params; //params are part of the URL
 //  const { imageUrl } = req.body; //body is part of the request body
 
@@ -44,7 +44,7 @@ const getItems = (req, res) => {
 //        .status(DEFAULT_ERROR)
 //        .send({ message: "An error has occurred on the server." });
 //    });
-//};
+// };
 
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
