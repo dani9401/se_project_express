@@ -16,7 +16,9 @@ const createItem = (req, res) => {
           err,
         });
       }
-      res.status(DEFAULT_ERROR).send({ message: "Error from createItem", err });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -24,7 +26,9 @@ const getItems = (req, res) => {
   ClothingItem.find({})
     .then((items) => res.status(OK).send(items))
     .catch((e) => {
-      res.status(DEFAULT_ERROR).send({ message: "Error from getItems", e });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -36,7 +40,9 @@ const updateItem = (req, res) => {
     .orFail()
     .then((item) => res.status(OK).send({ data: item }))
     .catch((err) => {
-      res.status(DEFAULT_ERROR).send({ message: "Error from updateItem", err });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -49,7 +55,9 @@ const deleteItem = (req, res) => {
     .catch((err) => {
       console.error(err);
       console.log(err.name);
-      res.status(DEFAULT_ERROR).send({ message: "Error from deleteItem", err });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -64,7 +72,9 @@ const likeItem = (req, res) => {
     .orFail()
     .then((like) => res.status(OK).send({ like }))
     .catch((err) => {
-      res.status(DEFAULT_ERROR).send({ message: "Error from likeItem", err });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 };
 
@@ -77,7 +87,9 @@ const dislikeItem = (req, res) =>
     .orFail()
     .then((item) => res.status(OK).send({ data: item }))
     .catch((e) => {
-      res.status(DEFAULT_ERROR).send({ message: "Error from dislikeItem", e });
+      res
+        .status(DEFAULT_ERROR)
+        .send({ message: "An error has occurred on the server." });
     });
 
 module.exports = {
