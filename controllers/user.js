@@ -46,14 +46,17 @@ const getUser = (req, res) => {
 
   User.findById(userId)
     .orFail()
-    .then((user) => res.status(OK).send(user))
+    .then((user) => res.send({ user }))
     .catch((err) => {
-      console.error(err);
-      console.log(err.name);
-      if (err.name === "CastError") {
-        res
-          .status(NOT_FOUND)
-          .send({ message: "No user with that ID. Please try again." });
+      if (err.name === "DocumentNotFoundError") {
+        res.status(NOT_FOUND).send({
+          message:
+            "There is no user with the requested id, or the request was sent to a non-existent address",
+        });
+      } else if (err.name === "CastError") {
+        res.status(BAD_REQUEST).send({
+          message: "Invalid ID passed.",
+        });
       } else {
         res
           .status(DEFAULT_ERROR)
