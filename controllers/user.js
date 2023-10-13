@@ -1,15 +1,7 @@
 const User = require("../models/user");
-const {
-  OK,
-  BAD_REQUEST,
-  NOT_FOUND,
-  DEFAULT_ERROR,
-} = require("../utils/errors");
+const { BAD_REQUEST, NOT_FOUND, DEFAULT_ERROR } = require("../utils/errors");
 
 const createUser = (req, res) => {
-  console.log(req);
-  console.log(req.body);
-
   const { name, avatar, owner } = req.body;
 
   User.create({ name, avatar })
@@ -17,8 +9,6 @@ const createUser = (req, res) => {
       res.send({ data: newUser });
     })
     .catch((err) => {
-      console.error(err);
-      console.log(err.name);
       if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
           message: "This field accepts a value between 2 and 30 characters",
