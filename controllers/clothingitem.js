@@ -25,7 +25,7 @@ const createItem = (req, res) => {
 const getItems = (req, res) => {
   ClothingItem.find({})
     .then((items) => res.send({ items }))
-    .catch((e) => {
+    .catch(() => {
       res
         .status(DEFAULT_ERROR)
         .send({ message: "An error has occurred on the server." });
@@ -51,7 +51,7 @@ const deleteItem = (req, res) => {
 
   ClothingItem.findByIdAndDelete(itemId)
     .orFail()
-    .then((item) => res.send({ message: "Item has been deleted." }))
+    .then(() => res.send({ message: "Item has been deleted." }))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
@@ -71,8 +71,6 @@ const deleteItem = (req, res) => {
 };
 
 const likeItem = (req, res) => {
-  const { itemId } = req.params.itemId;
-
   ClothingItem.findByIdAndUpdate(
     req.params.itemId,
     { $addToSet: { likes: req.user._id } },
@@ -130,8 +128,4 @@ module.exports = {
   deleteItem,
   likeItem,
   dislikeItem,
-};
-
-module.exports.createClothingItem = (req, res) => {
-  console.log(req.user._id); // _id will become accessible
 };

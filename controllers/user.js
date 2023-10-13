@@ -2,7 +2,7 @@ const User = require("../models/user");
 const { BAD_REQUEST, NOT_FOUND, DEFAULT_ERROR } = require("../utils/errors");
 
 const createUser = (req, res) => {
-  const { name, avatar, owner } = req.body;
+  const { name, avatar } = req.body;
 
   User.create({ name, avatar })
     .then((newUser) => {
@@ -24,7 +24,7 @@ const createUser = (req, res) => {
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send({ users }))
-    .catch((err) => {
+    .catch(() => {
       res
         .status(DEFAULT_ERROR)
         .send({ message: "An error has occurred on the server." });
