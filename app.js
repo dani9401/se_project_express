@@ -14,12 +14,12 @@ mongoose.connect(
 
 // the 'r' is for a response. if you get any response back that means it's not working/running
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: "651f7b0c1a44987c2d462a6a",
-  };
-  next();
-});
+//app.use((req, res, next) => {
+//  req.user = {
+//    _id: "651f7b0c1a44987c2d462a6a",
+//  };
+//  next();
+//});
 
 const routes = require("./routes");
 
