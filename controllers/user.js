@@ -40,7 +40,7 @@ const createUser = (req, res) => {
     });
 };
 
-const userLogin = (req, res) => {
+const loginUser = (req, res) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -51,7 +51,7 @@ const userLogin = (req, res) => {
       res.send({ token });
     })
     .catch((err) => {
-      res.status(401).send({ message: "error from userLogin" });
+      res.status(401).send({ message: "401 error from userLogin", err });
     });
 };
 
@@ -91,7 +91,7 @@ const getUser = (req, res) => {
 
 module.exports = {
   createUser,
-  userLogin,
+  loginUser,
   getUsers,
   getUser,
 };
