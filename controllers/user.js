@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utils/config");
 const User = require("../models/user");
 const { BAD_REQUEST, UNAUTHORIZED, DEFAULT_ERROR } = require("../utils/errors");
+const opts = { runValidators: true };
 
 const createUser = (req, res) => {
   bcrypt
@@ -81,6 +82,37 @@ const getCurrentUser = (req, res) => {
     });
 };
 
+const updateUser = (req, res) => {
+  const { name, avatar, email, password, userId } = req.user;
+
+  User.findByIdAndUpdate(
+    userId,
+    { $set: { name }, opts },
+    { $set: { avatar }, opts },
+    { $set: { email }, opts },
+    { $set: { password }, opts },
+    { new: true },
+  )
+    .orFail()
+    .then((userInfo) => res.send({ data: userInfo }))
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        res.status(NOT_FOUND).send({
+          message:
+            "There is no user with the requested id, or the request was sent to a non-existent address",
+        });
+      } else if (err.name === "CastError") {
+        res.status(BAD_REQUEST).send({
+          message: "Invalid ID passed.",
+        });
+      } else {
+        res
+          .status(DEFAULT_ERROR)
+          .send({ message: "An error has occurred on the server." });
+      }
+    });
+};
+
 //const getUsers = (req, res) => {
 //  User.find({})
 //    .then((users) => res.send({ users }))
@@ -119,4 +151,5 @@ module.exports = {
   createUser,
   loginUser,
   getCurrentUser,
+  updateUser,
 };
