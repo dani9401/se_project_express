@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utils/config");
 const User = require("../models/user");
-const { BAD_REQUEST, NOT_FOUND, DEFAULT_ERROR } = require("../utils/errors");
+const { BAD_REQUEST, UNAUTHORIZED, DEFAULT_ERROR } = require("../utils/errors");
 
 const createUser = (req, res) => {
   bcrypt
@@ -51,22 +51,14 @@ const loginUser = (req, res) => {
       res.send({ token });
     })
     .catch((err) => {
-      res.status(401).send({ message: "401 error from userLogin", err });
-    });
-};
-
-const getUsers = (req, res) => {
-  User.find({})
-    .then((users) => res.send({ users }))
-    .catch(() => {
       res
-        .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server." });
+        .status(UNAUTHORIZED)
+        .send({ message: "401 error from loginUser", err });
     });
 };
 
-const getUser = (req, res) => {
-  const { userId } = req.params;
+const getCurrentUser = (req, res) => {
+  const { userId } = req.user._id;
 
   User.findById(userId)
     .orFail()
@@ -89,9 +81,42 @@ const getUser = (req, res) => {
     });
 };
 
+//const getUsers = (req, res) => {
+//  User.find({})
+//    .then((users) => res.send({ users }))
+//    .catch(() => {
+//      res
+//        .status(DEFAULT_ERROR)
+//        .send({ message: "An error has occurred on the server." });
+//    });
+//};
+
+//const getUser = (req, res) => {
+//  const { userId } = req.params;
+
+//  User.findById(userId)
+//    .orFail()
+//    .then((user) => res.send({ user }))
+//    .catch((err) => {
+//      if (err.name === "DocumentNotFoundError") {
+//        res.status(NOT_FOUND).send({
+//          message:
+//            "There is no user with the requested id, or the request was sent to a non-existent address",
+//        });
+//      } else if (err.name === "CastError") {
+//        res.status(BAD_REQUEST).send({
+//          message: "Invalid ID passed.",
+//        });
+//      } else {
+//        res
+//          .status(DEFAULT_ERROR)
+//          .send({ message: "An error has occurred on the server." });
+//      }
+//    });
+//};
+
 module.exports = {
   createUser,
   loginUser,
-  getUsers,
-  getUser,
+  getCurrentUser,
 };
