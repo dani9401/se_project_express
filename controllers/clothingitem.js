@@ -14,6 +14,7 @@ const createItem = (req, res) => {
       res.send({ data: item });
     })
     .catch((err) => {
+      console.error(err);
       if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
           message: "This field accepts a value between 2 and 30 characters",
@@ -29,7 +30,8 @@ const createItem = (req, res) => {
 const getItems = (req, res) => {
   ClothingItem.find({})
     .then((items) => res.send({ items }))
-    .catch(() => {
+    .catch((err) => {
+      console.error(err);
       res
         .status(DEFAULT_ERROR)
         .send({ message: "An error has occurred on the server." });
@@ -65,6 +67,7 @@ const deleteItem = (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
           message:
@@ -91,6 +94,7 @@ const likeItem = (req, res) => {
     .orFail()
     .then((like) => res.send({ like }))
     .catch((err) => {
+      console.error(err);
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
           message:
@@ -117,6 +121,7 @@ const dislikeItem = (req, res) => {
     .orFail()
     .then((item) => res.send({ data: item }))
     .catch((err) => {
+      console.error(err);
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
           message:

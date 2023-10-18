@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const { PORT = 3001 } = process.env;
 const app = express();
+const { createUser, loginUser } = require("./controllers/user");
 
 mongoose.connect(
   "mongodb://127.0.0.1:27017/wtwr_db",
@@ -22,6 +23,9 @@ mongoose.connect(
 //});
 
 const routes = require("./routes");
+
+app.post("/signup/", createUser);
+app.post("/signin/", loginUser);
 
 app.use(express.json());
 app.use(routes);

@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utils/config");
 const User = require("../models/user");
@@ -6,20 +6,16 @@ const { BAD_REQUEST, UNAUTHORIZED, DEFAULT_ERROR } = require("../utils/errors");
 const opts = { runValidators: true };
 
 const createUser = (req, res) => {
-  bcrypt
-    .hash(req.body.password, 10)
-    .then((hash) =>
-      User.create({
-        email: req.body.email,
-        password: hash,
-        name: req.body,
-        avatar: req.body,
-      }),
-    )
+  const { name, avatar, email, password } = req.body;
+
+  return bcrypt
+    .hash(password, 10)
+    .then((hash) => User.create({ name, avatar, email, password: hash }))
     .then((newUser) => {
       res.send({ data: newUser });
     })
     .catch((err) => {
+      console.error(err);
       if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
           message: "This field accepts a value between 2 and 30 characters",
@@ -52,6 +48,7 @@ const loginUser = (req, res) => {
       res.send({ token });
     })
     .catch((err) => {
+      console.error(err);
       res
         .status(UNAUTHORIZED)
         .send({ message: "401 error from loginUser", err });
@@ -65,6 +62,7 @@ const getCurrentUser = (req, res) => {
     .orFail()
     .then((user) => res.send({ user }))
     .catch((err) => {
+      console.error(err);
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
           message:
@@ -96,6 +94,7 @@ const updateUser = (req, res) => {
     .orFail()
     .then((userInfo) => res.send({ data: userInfo }))
     .catch((err) => {
+      console.error(err);
       if (err.name === "DocumentNotFoundError") {
         res.status(NOT_FOUND).send({
           message:
@@ -117,6 +116,7 @@ const updateUser = (req, res) => {
 //  User.find({})
 //    .then((users) => res.send({ users }))
 //    .catch(() => {
+
 //      res
 //        .status(DEFAULT_ERROR)
 //        .send({ message: "An error has occurred on the server." });
