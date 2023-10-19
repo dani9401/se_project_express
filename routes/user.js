@@ -6,12 +6,12 @@ const { getCurrentUser, updateUser } = require("../controllers/user");
 
 // READ
 //router.get("/", getUsers);
-router.get("/users/me", auth, getCurrentUser);
+router.get("/me", auth, getCurrentUser);
 
 //router.get("/:userId", getUser);
 
 // UPDATE
-router.patch("/users/me", auth, updateUser);
+router.patch("/me", auth, updateUser);
 
 // DELETE
 
