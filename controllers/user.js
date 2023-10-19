@@ -8,7 +8,7 @@ const opts = { runValidators: true };
 const createUser = (req, res) => {
   const { name, avatar, email, password } = req.body;
 
-  return bcrypt
+  bcrypt
     .hash(password, 10)
     .then((hash) => User.create({ name, avatar, email, password: hash }))
     .then((newUser) => {
@@ -45,7 +45,7 @@ const loginUser = (req, res) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
-      res.send({ token });
+      res.send({ user, token });
     })
     .catch((err) => {
       console.error(err);
@@ -56,11 +56,11 @@ const loginUser = (req, res) => {
 };
 
 const getCurrentUser = (req, res) => {
-  const { userId } = req.user._id;
+  const userId = req.user._id;
 
   User.findById(userId)
     .orFail()
-    .then((user) => res.send({ user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
