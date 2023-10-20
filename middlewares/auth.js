@@ -9,7 +9,6 @@ const handleAuthError = (res) => {
 };
 
 module.exports = (req, res, next) => {
-  console.log(req.headers);
   // getting authorization from the header
   const { authorization } = req.headers;
 

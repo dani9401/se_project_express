@@ -89,7 +89,7 @@ const updateUser = (req, res) => {
     { $set: { avatar }, opts },
     { $set: { email }, opts },
     { $set: { password }, opts },
-    { new: true },
+    { new: true, runValidators: true },
   )
     .orFail()
     .then((userInfo) => res.send({ data: userInfo }))
