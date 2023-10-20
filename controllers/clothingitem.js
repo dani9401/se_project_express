@@ -17,8 +17,7 @@ const createItem = (req, res) => {
       console.error(err);
       if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
-          message: "This field accepts a value between 2 and 30 characters",
-          err,
+          message: err.message,
         });
       }
       res
