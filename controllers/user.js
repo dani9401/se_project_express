@@ -4,10 +4,11 @@ const { JWT_SECRET } = require("../utils/config");
 const User = require("../models/user");
 const {
   BAD_REQUEST,
-  UNAUTHORIZED,
   DEFAULT_ERROR,
   DUPLICATE,
+  NOT_FOUND,
 } = require("../utils/errors");
+
 const opts = { runValidators: true };
 
 const createUser = (req, res) => {
@@ -18,30 +19,30 @@ const createUser = (req, res) => {
       return res
         .status(DUPLICATE)
         .send({ message: "Email already exists in system" });
-    } else
-      return bcrypt
-        .hash(password, 10)
-        .then((hash) => User.create({ name, avatar, email, password: hash }))
-        .then((newUser) => {
-          res.send({ data: newUser });
-        })
-        .catch((err) => {
-          console.error(err);
-          if (err.name === "ValidationError") {
-            res.status(BAD_REQUEST).send({
-              message: err.message,
-            });
-          } else if (error.code === 11000) {
-            console.error("Duplicate key error. Document already exists!");
-            res.status(DUPLICATE).send({
-              message: "Email already exists in our system.",
-            });
-          } else {
-            res
-              .status(DEFAULT_ERROR)
-              .send({ message: "An error has occurred on the server." });
-          }
-        });
+    }
+    return bcrypt
+      .hash(password, 10)
+      .then((hash) => User.create({ name, avatar, email, password: hash }))
+      .then((newUser) => {
+        res.send({ data: newUser });
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.name === "ValidationError") {
+          res.status(BAD_REQUEST).send({
+            message: err.message,
+          });
+        } else if (err.code === 11000) {
+          console.error("Duplicate key error. Document already exists!");
+          res.status(DUPLICATE).send({
+            message: "Email already exists in our system.",
+          });
+        } else {
+          res
+            .status(DEFAULT_ERROR)
+            .send({ message: "An error has occurred on the server." });
+        }
+      });
   });
 };
 
@@ -107,7 +108,7 @@ const updateUser = (req, res) => {
         { new: true, runValidators: true },
       ),
     )
-    //.orFail()
+    // .orFail()
     .then((userInfo) => res.send({ data: userInfo }))
     .catch((err) => {
       console.error(err);
@@ -132,7 +133,7 @@ const updateUser = (req, res) => {
     });
 };
 
-//const getUsers = (req, res) => {
+// const getUsers = (req, res) => {
 //  User.find({})
 //    .then((users) => res.send({ users }))
 //    .catch(() => {
@@ -141,9 +142,9 @@ const updateUser = (req, res) => {
 //        .status(DEFAULT_ERROR)
 //        .send({ message: "An error has occurred on the server." });
 //    });
-//};
+// };
 
-//const getUser = (req, res) => {
+// const getUser = (req, res) => {
 //  const { userId } = req.params;
 
 //  User.findById(userId)
@@ -165,7 +166,7 @@ const updateUser = (req, res) => {
 //          .send({ message: "An error has occurred on the server." });
 //      }
 //    });
-//};
+// };
 
 module.exports = {
   createUser,
