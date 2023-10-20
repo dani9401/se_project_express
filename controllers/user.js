@@ -49,9 +49,15 @@ const loginUser = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res
-        .status(UNAUTHORIZED)
-        .send({ message: "401 error from loginUser", err });
+      if (err.name === "ValidationError") {
+        res.status(UNAUTHORIZED).send({
+          message: "Incorrect email or password",
+        });
+      } else {
+        res
+          .status(DEFAULT_ERROR)
+          .send({ message: "An error has occurred on the server." });
+      }
     });
 };
 
@@ -81,17 +87,19 @@ const getCurrentUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { name, avatar, email, password, userId } = req.user;
+  const { name, avatar, email, password } = req.body;
+  const userId = req.user._id;
 
-  User.findByIdAndUpdate(
-    userId,
-    { $set: { name }, opts },
-    { $set: { avatar }, opts },
-    { $set: { email }, opts },
-    { $set: { password }, opts },
-    { new: true, runValidators: true },
-  )
-    .orFail()
+  bcrypt
+    .hash(password, 10)
+    .then((hash) =>
+      User.findByIdAndUpdate(
+        userId,
+        { $set: { name, avatar, email, password: hash }, opts },
+        { new: true, runValidators: true },
+      ),
+    )
+    //.orFail()
     .then((userInfo) => res.send({ data: userInfo }))
     .catch((err) => {
       console.error(err);
@@ -103,6 +111,10 @@ const updateUser = (req, res) => {
       } else if (err.name === "CastError") {
         res.status(BAD_REQUEST).send({
           message: "Invalid ID passed.",
+        });
+      } else if (err.name === "ValidatorError") {
+        res.status(BAD_REQUEST).send({
+          message: "You must enter a valid URL.",
         });
       } else {
         res
