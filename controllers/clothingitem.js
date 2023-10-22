@@ -54,16 +54,17 @@ const getItems = (req, res) => {
 const deleteItem = (req, res) => {
   const { itemId } = req.params;
 
-  ClothingItem.findByIdAndDelete(itemId)
+  ClothingItem.findById(itemId)
     .orFail()
     .then((item) => {
-      if (!item.owner.equals(req.user._id)) {
+      if (String(item.owner) !== req.user._id) {
         res
           .status(FORBIDDEN)
           .send({ message: "You are not authorized to delete this item." });
-      } else {
-        res.send({ message: "Item has been deleted." });
       }
+      return item
+        .deleteOne()
+        .then(() => res.send({ message: "Item deleted." }));
     })
     .catch((err) => {
       console.error(err);
