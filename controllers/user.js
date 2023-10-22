@@ -14,36 +14,29 @@ const opts = { runValidators: true };
 const createUser = (req, res) => {
   const { name, avatar, email, password } = req.body;
 
-  User.findOne({ email }).then((user) => {
-    if (user) {
-      return res
-        .status(DUPLICATE)
-        .send({ message: "Email already exists in system" });
-    }
-    return bcrypt
-      .hash(password, 10)
-      .then((hash) => User.create({ name, avatar, email, password: hash }))
-      .then((newUser) => {
-        res.send({ data: newUser });
-      })
-      .catch((err) => {
-        console.error(err);
-        if (err.name === "ValidationError") {
-          res.status(BAD_REQUEST).send({
-            message: err.message,
-          });
-        } else if (err.code === 11000) {
-          console.error("Duplicate key error. Document already exists!");
-          res.status(DUPLICATE).send({
-            message: "Email already exists in our system.",
-          });
-        } else {
-          res
-            .status(DEFAULT_ERROR)
-            .send({ message: "An error has occurred on the server." });
-        }
-      });
-  });
+  bcrypt
+    .hash(password, 10)
+    .then((hash) => User.create({ name, avatar, email, password: hash }))
+    .then(({ name, avatar, email }) => {
+      res.send({ data: name, avatar, email });
+    })
+    .catch((err) => {
+      console.error(err);
+      if (err.name === "ValidationError") {
+        res.status(BAD_REQUEST).send({
+          message: err.message,
+        });
+      } else if (err.code === 11000) {
+        console.error("Duplicate key error. Document already exists!");
+        res.status(DUPLICATE).send({
+          message: "Email already exists in our system.",
+        });
+      } else {
+        res
+          .status(DEFAULT_ERROR)
+          .send({ message: "An error has occurred on the server." });
+      }
+    });
 };
 
 const loginUser = (req, res) => {
