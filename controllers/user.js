@@ -7,6 +7,7 @@ const {
   DEFAULT_ERROR,
   DUPLICATE,
   NOT_FOUND,
+  UNAUTHORIZED,
 } = require("../utils/errors");
 
 const opts = { runValidators: true };
@@ -47,12 +48,12 @@ const loginUser = (req, res) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
-      res.send({ user, token });
+      res.send({ token });
     })
     .catch((err) => {
       console.error(err);
-      if (err.name === "ValidationError") {
-        res.status(BAD_REQUEST).send({
+      if (err.message === "Incorrect email or password") {
+        res.status(UNAUTHORIZED).send({
           message: "Incorrect email address or password.",
         });
       } else {
