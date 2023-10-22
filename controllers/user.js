@@ -123,41 +123,6 @@ const updateUser = (req, res) => {
     });
 };
 
-// const getUsers = (req, res) => {
-//  User.find({})
-//    .then((users) => res.send({ users }))
-//    .catch(() => {
-
-//      res
-//        .status(DEFAULT_ERROR)
-//        .send({ message: "An error has occurred on the server." });
-//    });
-// };
-
-// const getUser = (req, res) => {
-//  const { userId } = req.params;
-
-//  User.findById(userId)
-//    .orFail()
-//    .then((user) => res.send({ user }))
-//    .catch((err) => {
-//      if (err.name === "DocumentNotFoundError") {
-//        res.status(NOT_FOUND).send({
-//          message:
-//            "There is no user with the requested id, or the request was sent to a non-existent address",
-//        });
-//      } else if (err.name === "CastError") {
-//        res.status(BAD_REQUEST).send({
-//          message: "Invalid ID passed.",
-//        });
-//      } else {
-//        res
-//          .status(DEFAULT_ERROR)
-//          .send({ message: "An error has occurred on the server." });
-//      }
-//    });
-// };
-
 module.exports = {
   createUser,
   loginUser,
