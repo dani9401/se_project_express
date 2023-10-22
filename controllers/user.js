@@ -90,19 +90,15 @@ const getCurrentUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { name, avatar, email, password } = req.body;
+  const { name, avatar } = req.body;
   const userId = req.user._id;
 
-  bcrypt
-    .hash(password, 10)
-    .then((hash) =>
-      User.findByIdAndUpdate(
-        userId,
-        { $set: { name, avatar, email, password: hash }, opts },
-        { new: true, runValidators: true },
-      ),
-    )
-    // .orFail()
+  User.findByIdAndUpdate(
+    userId,
+    { $set: { name, avatar }, opts },
+    { new: true, runValidators: true },
+  )
+    .orFail()
     .then((userInfo) => res.send({ data: userInfo }))
     .catch((err) => {
       console.error(err);
@@ -115,7 +111,7 @@ const updateUser = (req, res) => {
         res.status(BAD_REQUEST).send({
           message: "Invalid ID passed.",
         });
-      } else if (err.name === "ValidatorError") {
+      } else if (err.name === "ValidationError") {
         res.status(BAD_REQUEST).send({
           message: "You must enter a valid URL.",
         });
