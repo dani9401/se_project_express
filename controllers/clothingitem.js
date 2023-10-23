@@ -58,7 +58,7 @@ const deleteItem = (req, res) => {
     .orFail()
     .then((item) => {
       if (String(item.owner) !== req.user._id) {
-        res
+        return res
           .status(FORBIDDEN)
           .send({ message: "You are not authorized to delete this item." });
       }
