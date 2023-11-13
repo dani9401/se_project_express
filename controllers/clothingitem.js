@@ -92,7 +92,7 @@ const likeItem = (req, res) => {
     { new: true },
   )
     .orFail()
-    .then((like) => res.send({ like }))
+    .then((item) => res.send({ data: item }))
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
