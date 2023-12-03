@@ -77,7 +77,7 @@ const getCurrentUser = (req, res, next) => {
     });
 };
 
-const updateUser = (req, res) => {
+const updateUser = (req, res, next) => {
   const { name, avatar } = req.body;
   const userId = req.user._id;
 
@@ -89,24 +89,18 @@ const updateUser = (req, res) => {
     .orFail()
     .then((userInfo) => res.send({ data: userInfo }))
     .catch((err) => {
-      console.error(err);
       if (err.name === "DocumentNotFoundError") {
-        res.status(NOT_FOUND).send({
-          message:
+        next(
+          new NotFoundError(
             "There is no user with the requested id, or the request was sent to a non-existent address",
-        });
+          ),
+        );
       } else if (err.name === "CastError") {
-        res.status(BAD_REQUEST).send({
-          message: "Invalid ID passed.",
-        });
+        next(new BadRequestError("Invalid ID passed."));
       } else if (err.name === "ValidationError") {
-        res.status(BAD_REQUEST).send({
-          message: "You must enter a valid URL.",
-        });
+        next(new BadRequestError("You must enter a valid URL."));
       } else {
-        res
-          .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server." });
+        next(err);
       }
     });
 };
