@@ -1,3 +1,7 @@
+const ForbiddenError = require("../utils/errors/forbidden-error");
+const BadRequestError = require("../utils/errors/bad-request-error");
+const DocumentNotFoundError = require("../utils/errors/not-found-error");
+
 const ClothingItem = require("../models/clothingitem");
 const {
   BAD_REQUEST,
@@ -51,39 +55,58 @@ const getItems = (req, res) => {
 //    });
 // };
 
-const deleteItem = (req, res) => {
+const deleteItem = (req, res, next) => {
   const { itemId } = req.params;
 
   ClothingItem.findById(itemId)
     .orFail()
     .then((item) => {
       if (String(item.owner) !== req.user._id) {
-        return res
-          .status(FORBIDDEN)
-          .send({ message: "You are not authorized to delete this item." });
+        throw new ForbiddenError("You are not authorized to delete this item.");
+        //return res
+        //   .status(FORBIDDEN)
+        //   .send({ message: "You are not authorized to delete this item." });
       }
       return item
         .deleteOne()
         .then(() => res.send({ message: "Item deleted." }));
     })
+
     .catch((err) => {
-      console.error(err);
-      if (err.name === "DocumentNotFoundError") {
-        res.status(NOT_FOUND).send({
-          message:
+      if (err.name === "CastError") {
+        next(new BadRequestError("Invalid ID passed"));
+      } else if (err.name === "DocumentNotFoundError") {
+        next(
+          new DocumentNotFoundError(
             "There is no clothing item with the requested id, or the request was sent to a non-existent address",
-        });
-      } else if (err.name === "CastError") {
-        res.status(BAD_REQUEST).send({
-          message: "Invalid ID passed.",
-        });
+          ),
+        );
       } else {
-        res.status(DEFAULT_ERROR).send({
-          message: "An error has occurred on the server.",
-        });
+        next(err);
       }
     });
+
+  //.catch((err) => next(new Error("Authorization error")));
 };
+
+//.catch((err) => {
+//  console.error(err);
+//  if (err.name === "DocumentNotFoundError") {
+//    res.status(NOT_FOUND).send({
+//      message:
+//        "There is no clothing item with the requested id, or the request was sent to a non-existent address",
+//    });
+//  } else if (err.name === "CastError") {
+//    res.status(BAD_REQUEST).send({
+//      message: "Invalid ID passed.",
+//    });
+//  } else {
+//    res.status(DEFAULT_ERROR).send({
+//      message: "An error has occurred on the server.",
+//    });
+//  }
+//});
+//};
 
 const likeItem = (req, res) => {
   ClothingItem.findByIdAndUpdate(
@@ -138,6 +161,8 @@ const dislikeItem = (req, res) => {
       }
     });
 };
+
+//next(new Error('Authorization error'))
 
 module.exports = {
   createItem,
