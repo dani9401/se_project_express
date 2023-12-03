@@ -10,7 +10,7 @@ const {
   NOT_FOUND,
 } = require("../utils/errors");
 
-const createItem = (req, res) => {
+const createItem = (req, res, next) => {
   const { name, weather, imageUrl, likes } = req.body;
 
   ClothingItem.create({ name, weather, imageUrl, owner: req.user._id, likes })
@@ -18,17 +18,27 @@ const createItem = (req, res) => {
       res.send(item);
     })
     .catch((err) => {
-      console.error(err);
       if (err.name === "ValidationError") {
-        res.status(BAD_REQUEST).send({
-          message: err.message,
-        });
+        next(
+          new BadRequestError(
+            "This field accepts a value between 2 and 30 characters",
+          ),
+        );
+      } else {
+        next(err);
       }
-      res
-        .status(DEFAULT_ERROR)
-        .send({ message: "An error has occurred on the server." });
     });
 };
+//if (err.name === "ValidationError") {
+//  res.status(BAD_REQUEST).send({
+//    message: err.message,
+//  });
+// }
+//res
+//  .status(DEFAULT_ERROR)
+//  .send({ message: "An error has occurred on the server." });
+//});
+//};
 
 const getItems = (req, res, next) => {
   ClothingItem.find({})
