@@ -36,7 +36,7 @@ const createUser = (req, res, next) => {
     });
 };
 
-const loginUser = (req, res) => {
+const loginUser = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -47,15 +47,10 @@ const loginUser = (req, res) => {
       res.send({ token });
     })
     .catch((err) => {
-      console.error(err);
       if (err.message === "Incorrect email or password") {
-        res.status(UNAUTHORIZED).send({
-          message: "Incorrect email address or password.",
-        });
+        next(new UnauthorizedError("Incorrect email address or password."));
       } else {
-        res
-          .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server." });
+        next(err);
       }
     });
 };
