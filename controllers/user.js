@@ -13,6 +13,7 @@ const BadRequestError = require("../utils/errors/bad-request-error");
 const DuplicateError = require("../utils/errors/duplicate-error");
 const UnauthorizedError = require("../utils/errors/unauthorized-error");
 const DocumentNotFoundError = require("../utils/errors/not-found-error");
+const NotFoundError = require("../utils/errors/not-found-error");
 
 const opts = { runValidators: true };
 
@@ -55,27 +56,23 @@ const loginUser = (req, res, next) => {
     });
 };
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
-      console.error(err);
       if (err.name === "DocumentNotFoundError") {
-        res.status(NOT_FOUND).send({
-          message:
+        next(
+          new NotFoundError(
             "There is no user with the requested id, or the request was sent to a non-existent address",
-        });
+          ),
+        );
       } else if (err.name === "CastError") {
-        res.status(BAD_REQUEST).send({
-          message: "Invalid ID passed.",
-        });
+        next(new BadRequestError("Invalid ID passed."));
       } else {
-        res
-          .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server." });
+        next(err);
       }
     });
 };
