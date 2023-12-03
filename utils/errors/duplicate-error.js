@@ -6,4 +6,4 @@ class DuplicateError extends Error {
   }
 }
 
-//module.exports = DuplicateError;
+module.exports = DuplicateError;
