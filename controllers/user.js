@@ -16,7 +16,7 @@ const DocumentNotFoundError = require("../utils/errors/not-found-error");
 
 const opts = { runValidators: true };
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   const { name, avatar, email, password } = req.body;
 
   bcrypt
@@ -28,18 +28,11 @@ const createUser = (req, res) => {
     .catch((err) => {
       console.error(err);
       if (err.name === "ValidationError") {
-        res.status(BAD_REQUEST).send({
-          message: err.message,
-        });
+        next(new BadRequestError(err.message));
       } else if (err.code === 11000) {
-        console.error("Duplicate key error. Document already exists!");
-        res.status(DUPLICATE).send({
-          message: "Email already exists in our system.",
-        });
+        next(new DuplicateError("Email already exists in our system."));
       } else {
-        res
-          .status(DEFAULT_ERROR)
-          .send({ message: "An error has occurred on the server." });
+        next(err);
       }
     });
 };
