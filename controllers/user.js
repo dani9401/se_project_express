@@ -26,7 +26,6 @@ const createUser = (req, res, next) => {
       res.send({ newName, newAvatar, newEmail });
     })
     .catch((err) => {
-      console.error(err);
       if (err.name === "ValidationError") {
         next(new BadRequestError(err.message));
       } else if (err.code === 11000) {
