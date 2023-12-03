@@ -124,20 +124,16 @@ const likeItem = (req, res) => {
     .orFail()
     .then((item) => res.send(item))
     .catch((err) => {
-      console.error(err);
       if (err.name === "DocumentNotFoundError") {
-        res.status(NOT_FOUND).send({
-          message:
+        next(
+          new DocumentNotFoundError(
             "There is no clothing item with the requested id, or the request was sent to a non-existent address",
-        });
+          ),
+        );
       } else if (err.name === "CastError") {
-        res.status(BAD_REQUEST).send({
-          message: "Invalid ID passed.",
-        });
+        next(new BadRequestError("Invalid ID passed."));
       } else {
-        res.status(DEFAULT_ERROR).send({
-          message: "An error has occurred on the server.",
-        });
+        next(err);
       }
     });
 };
