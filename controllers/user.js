@@ -12,7 +12,6 @@ const {
 const BadRequestError = require("../utils/errors/bad-request-error");
 const DuplicateError = require("../utils/errors/duplicate-error");
 const UnauthorizedError = require("../utils/errors/unauthorized-error");
-const DocumentNotFoundError = require("../utils/errors/not-found-error");
 const NotFoundError = require("../utils/errors/not-found-error");
 
 const opts = { runValidators: true };
