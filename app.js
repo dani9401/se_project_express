@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
+const { errors } = require("celebrate");
 
 const { PORT = 3001 } = process.env;
 const app = express();
@@ -20,6 +21,7 @@ const routes = require("./routes");
 
 app.use(express.json());
 app.use(routes);
+app.use(errors()); // celebrate error handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
