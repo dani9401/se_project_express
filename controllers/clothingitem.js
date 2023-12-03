@@ -19,11 +19,7 @@ const createItem = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
-        next(
-          new BadRequestError(
-            "This field accepts a value between 2 and 30 characters",
-          ),
-        );
+        next(new BadRequestError(err.message));
       } else {
         next(err);
       }
