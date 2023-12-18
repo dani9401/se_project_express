@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 const errorHandler = require("./middlewares/errorHandler");
 const { errors } = require("celebrate");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
@@ -11,7 +12,7 @@ const app = express();
 app.use(cors());
 
 mongoose.connect(
-  "mongodb://127.0.0.1:27017/wtwr_db",
+  "mongodb://34.83.161.78:3001/wtwr_db",
   () => {
     console.log("connected to db");
   },
