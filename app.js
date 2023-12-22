@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 
 mongoose.connect(
-  "mongodb://34.83.161.78:3001/wtwr_db",
+  "mongodb://127.0.0.1:27017/wtwr_db",
   () => {
     console.log("connected to db");
   },
