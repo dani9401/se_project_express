@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middlewares/auth");
+const validate = require("../middlewares/validation");
 const { getCurrentUser, updateUser } = require("../controllers/user");
 
 // CREATE
@@ -11,7 +12,7 @@ router.get("/me", auth, getCurrentUser);
 // router.get("/:userId", getUser);
 
 // UPDATE
-router.patch("/me", auth, updateUser);
+router.patch("/me", auth, validate, updateUser);
 
 // DELETE
 
