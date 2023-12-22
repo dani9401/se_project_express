@@ -133,9 +133,6 @@ router.get(
 router.patch(
   "/me",
   celebrate({
-    params: Joi.object().keys({
-      userId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
-    }),
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30).messages({
         "string.min": 'The minimum length of the "name" field is 2',
