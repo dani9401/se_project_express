@@ -63,7 +63,7 @@ router.post(
           "string.min": 'The minimum length of the "password" field is 8',
         }),
       }),
-    }).unknown(true),
+    }),
     createUser,
   );
 
@@ -81,7 +81,7 @@ router.post(
         "string.min": 'The minimum length of the "password" field is 8',
       }),
     }),
-  }).unknown(true),
+  }),
   loginUser,
 );
 
@@ -103,7 +103,7 @@ router.delete(
     params: Joi.object().keys({
       itemId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
     }),
-  }).unknown(true),
+  }),
   dislikeItem,
 );
 
@@ -114,7 +114,7 @@ router.put(
     params: Joi.object().keys({
       itemId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
     }),
-  }).unknown(true),
+  }),
   likeItem,
 );
 
@@ -125,7 +125,7 @@ router.get(
     params: Joi.object().keys({
       userId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
     }),
-  }).unknown(true),
+  }),
   getCurrentUser,
 );
 
@@ -147,6 +147,6 @@ router.patch(
         "string.uri": 'the "avatar" field must be a valid url',
       }),
     }),
-  }).unknown(true),
+  }),
   updateUser,
 );
