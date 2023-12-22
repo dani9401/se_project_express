@@ -3,12 +3,6 @@ const BadRequestError = require("../utils/errors/bad-request-error");
 const DocumentNotFoundError = require("../utils/errors/not-found-error");
 
 const ClothingItem = require("../models/clothingitem");
-const {
-  BAD_REQUEST,
-  DEFAULT_ERROR,
-  FORBIDDEN,
-  NOT_FOUND,
-} = require("../utils/errors");
 
 const createItem = (req, res, next) => {
   const { name, weather, imageUrl, likes } = req.body;
@@ -25,16 +19,6 @@ const createItem = (req, res, next) => {
       }
     });
 };
-//if (err.name === "ValidationError") {
-//  res.status(BAD_REQUEST).send({
-//    message: err.message,
-//  });
-// }
-//res
-//  .status(DEFAULT_ERROR)
-//  .send({ message: "An error has occurred on the server." });
-//});
-//};
 
 const getItems = (req, res, next) => {
   ClothingItem.find({})
