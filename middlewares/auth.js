@@ -6,7 +6,7 @@ const UnauthorizedError = require("../utils/errors/unauthorized-error");
 //  res
 //    .status(UNAUTHORIZED)
 //    .send({ message: "Authorization Error from handleAuthError" });
-//};
+// };
 
 module.exports = (req, res, next) => {
   // getting authorization from the header
