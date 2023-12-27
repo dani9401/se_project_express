@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../utils/config");
-const { UNAUTHORIZED } = require("../utils/errors");
+const UnauthorizedError = require("../utils/errors/unauthorized-error");
 
-const handleAuthError = (res) => {
-  res
-    .status(UNAUTHORIZED)
-    .send({ message: "Authorization Error from handleAuthError" });
-};
+// const handleAuthError = (res) => {
+//  res
+//    .status(UNAUTHORIZED)
+//    .send({ message: "Authorization Error from handleAuthError" });
+//};
 
 module.exports = (req, res, next) => {
   // getting authorization from the header
@@ -14,7 +14,9 @@ module.exports = (req, res, next) => {
 
   // let's check the header exists and starts with 'Bearer '
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    return handleAuthError(res);
+    return next(
+      new UnauthorizedError("Invalid format for authorization header"),
+    );
   }
   // getting the token
   const token = authorization.replace("Bearer ", "");
@@ -24,8 +26,9 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    console.error(err);
-    return handleAuthError(res);
+    return next(
+      new UnauthorizedError("An error occurred while parsing the payload"),
+    );
   }
 
   req.user = payload; // adding the payload to the Request object
