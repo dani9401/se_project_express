@@ -1,17 +1,5 @@
 const { Joi, celebrate } = require("celebrate");
 const validator = require("validator");
-const {
-  createItem,
-  deleteItem,
-  dislikeItem,
-  likeItem,
-} = require("../controllers/clothingitem");
-const {
-  createUser,
-  loginUser,
-  getCurrentUser,
-  updateUser,
-} = require("../controllers/user");
 
 // - - - URL Validator Function - - -
 const validateURL = (value, helpers) => {
