@@ -28,20 +28,6 @@ const getItems = (req, res, next) => {
     });
 };
 
-// const updateItem = (req, res) => {
-//  const { itemId } = req.params; //params are part of the URL
-//  const { imageUrl } = req.body; //body is part of the request body
-
-//  ClothingItem.findByIdAndUpdate(itemId, { $set: { imageUrl } })
-//    .orFail()
-//    .then((item) => res.send({ data: item }))
-//    .catch((err) => {
-//      res
-//        .status(DEFAULT_ERROR)
-//        .send({ message: "An error has occurred on the server." });
-//    });
-// };
-
 const deleteItem = (req, res, next) => {
   const { itemId } = req.params;
 
@@ -50,9 +36,6 @@ const deleteItem = (req, res, next) => {
     .then((item) => {
       if (String(item.owner) !== req.user._id) {
         throw new ForbiddenError("You are not authorized to delete this item.");
-        //return res
-        //   .status(FORBIDDEN)
-        //   .send({ message: "You are not authorized to delete this item." });
       }
       return item
         .deleteOne()
@@ -72,28 +55,7 @@ const deleteItem = (req, res, next) => {
         next(err);
       }
     });
-
-  //.catch((err) => next(new Error("Authorization error")));
 };
-
-//.catch((err) => {
-//  console.error(err);
-//  if (err.name === "DocumentNotFoundError") {
-//    res.status(NOT_FOUND).send({
-//      message:
-//        "There is no clothing item with the requested id, or the request was sent to a non-existent address",
-//    });
-//  } else if (err.name === "CastError") {
-//    res.status(BAD_REQUEST).send({
-//      message: "Invalid ID passed.",
-//    });
-//  } else {
-//    res.status(DEFAULT_ERROR).send({
-//      message: "An error has occurred on the server.",
-//    });
-//  }
-//});
-//};
 
 const likeItem = (req, res, next) => {
   ClothingItem.findByIdAndUpdate(
@@ -140,8 +102,6 @@ const dislikeItem = (req, res, next) => {
       }
     });
 };
-
-//next(new Error('Authorization error'))
 
 module.exports = {
   createItem,

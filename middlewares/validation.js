@@ -26,8 +26,6 @@ const validateClothingItem = celebrate({
 });
 
 // - - - - createUser - - - -
-//router.post(
-//  "/posts",
 const validateNewUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30).messages({
@@ -51,8 +49,6 @@ const validateNewUser = celebrate({
 });
 
 // - - - - loginUser - - - -
-//router.post(
-//  "/posts",
 const validateLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email().messages({
@@ -67,44 +63,34 @@ const validateLogin = celebrate({
 });
 
 // - - - - deleteItem- - - -
-//router.delete(
-//  "/:itemId",
 const validateDeleteItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
+    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - dislikeItem- - - -
-//router.delete(
-//  "/:itemId/likes",
 const validateDislikeItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
+    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - likeItem- - - -
-//router.put(
-//  "/:itemId/likes",
 const validateLikeItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
+    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - getCurrentUser- - - -
-//router.get(
-//  "/me",
 const validateGetCurrentUser = celebrate({
   params: Joi.object().keys({
-    userId: Joi.string().hexadecimal().length(24), //check hexadecimal setup correctly
+    userId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - updateUser- - - -
-//router.patch(
-//  "/me",
 const validateUpdateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30).messages({
