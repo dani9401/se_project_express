@@ -65,28 +65,28 @@ const validateLogin = celebrate({
 // - - - - deleteItem- - - -
 const validateDeleteItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
+    itemId: Joi.string().hex().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - dislikeItem- - - -
 const validateDislikeItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
+    itemId: Joi.string().hex().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - likeItem- - - -
 const validateLikeItem = celebrate({
   params: Joi.object().keys({
-    itemId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
+    itemId: Joi.string().hex().length(24), // check hexadecimal setup correctly
   }),
 });
 
 // - - - - getCurrentUser- - - -
 const validateGetCurrentUser = celebrate({
   params: Joi.object().keys({
-    userId: Joi.string().hexadecimal().length(24), // check hexadecimal setup correctly
+    userId: Joi.string().hex().length(24), // check hexadecimal setup correctly
   }),
 });
 
