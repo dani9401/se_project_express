@@ -105,7 +105,7 @@ const validateUpdateUser = celebrate({
   }),
 });
 
-module.export = {
+module.exports = {
   validateClothingItem,
   validateDeleteItem,
   validateDislikeItem,
