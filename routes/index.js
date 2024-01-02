@@ -11,7 +11,7 @@ router.use("/users", userRoutes);
 router.post("/signup/", validateNewUser, createUser);
 router.post("/signin/", validateLogin, loginUser);
 
-router.use((req, res) => {
+router.use((req, res, next) => {
   console.log(res);
   // res.status(NOT_FOUND).send({
   //   message: "The request was sent to a non-existent address",
