@@ -16,7 +16,9 @@ router.use((req, res) => {
   // res.status(NOT_FOUND).send({
   //   message: "The request was sent to a non-existent address",
   // });
-  return new NotFoundError("The request was sent to a non-existent address");
+  return next(
+    new NotFoundError("The request was sent to a non-existent address"),
+  );
 });
 
 module.exports = router;
